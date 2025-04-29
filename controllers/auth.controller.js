@@ -3,11 +3,7 @@ const { ErrorHandler } = require("../helpers/error");
 
 const createAccount = async (req, res) => {
   const { token, refreshToken, user } = await authService.signUp(req.body);
-
-  if (process.env.NODE_ENV !== "test") {
-    await mail.signupMail(user.email, user.fullname.split(" ")[0]);
-  }
-
+ 
   res.header("auth-token", token);
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
